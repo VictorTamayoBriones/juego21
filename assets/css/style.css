@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  color: #ffffff; }
+
+body {
+  background: #2f4f30; }
+
+.titulo {
+  text-align: center;
+  background: #000;
+  color: #ffffff;
+  padding: 20px;
+  font-size: 20px; }
+
+.carta {
+  position: relative;
+  width: 150px;
+  left: 100px;
+  margin-left: -75px; }
+
+#jugador-cartas, #computadora-cartas {
+  height: 240px; }
+
+button {
+  margin: 10px; }
+
+/*# sourceMappingURL=style.css.map */
