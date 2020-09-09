@@ -14,6 +14,7 @@ let puntosJugador = 0, puntosOmputadora = 0;
 //referencias html
 const btnPedir = document.querySelector('#btnPedir');
 const puntajeHtml = document.querySelectorAll('small');
+const cartaJugador = document.querySelector('#jugador-cartas');
 
 
 
@@ -69,5 +70,22 @@ btnPedir.addEventListener('click', ()=>{
     
     puntosJugador = puntosJugador + valorCarta(carta);
     puntajeHtml[0].innerText=puntosJugador;
+
+    //Insertar la carta
+    const imgCarta = document.createElement('img');
+    imgCarta.src = `./assets/cartas/${carta}.png`;
+    imgCarta.classList.add('carta');
+    cartaJugador.append(imgCarta);
+
+    //bloquear los botones
+    if(puntosJugador>21){
+        console.warn('Perdiste');
+        btnPedir.disabled=true;
+    }else if(puntosJugador===21){
+        console.warn('21, ganaste');
+        btnPedir.disabled=true;
+    }
     
-})
+});
+
+
