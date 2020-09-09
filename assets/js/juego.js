@@ -120,6 +120,7 @@ btnPedir.addEventListener('click', ()=>{
         turnoComputadora(puntosJugador);
     }else if(puntosJugador===21){
         console.warn('21, ganaste');
+        alert('21, Ganaste')
         btnPedir.disabled=true;
         btnDetener.disabled=true;
     }
