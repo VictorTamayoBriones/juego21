@@ -9,13 +9,15 @@ let deck    = [];
 const tipos = ['C', 'D', 'H', 'S'];
 const especiales = ['A', 'J', 'Q', 'K'];
 
-let puntosJugador = 0, puntosOmputadora = 0;
+let puntosJugador = 0, puntosComputadora = 0;
 
 //referencias html
 const btnPedir = document.querySelector('#btnPedir');
+const btnDetener = document.querySelector('#btnDetener');
+const btnNuevo = document.querySelector('#btnNuevo');
 const puntajeHtml = document.querySelectorAll('small');
 const cartaJugador = document.querySelector('#jugador-cartas');
-
+const cartaComputadora = document.querySelector('#computadora-cartas');
 
 
 // esta funcion crea un nuevo deck
@@ -63,6 +65,39 @@ valorCarta = (carta)=>{
     
 }
 
+const turnoComputadora = (puntosMinimos) => {
+    
+    do {
+    const carta = pedirCarta();
+    
+    puntosComputadora = puntosComputadora + valorCarta(carta);
+    puntajeHtml[1].innerText=puntosComputadora;
+
+    //Insertar la carta
+    const imgCarta = document.createElement('img');
+    imgCarta.src = `./assets/cartas/${carta}.png`;
+    imgCarta.classList.add('carta');
+    cartaComputadora.append(imgCarta);
+        if(puntosJugador===21){
+            break;
+        }
+    } while ((puntosComputadora<puntosMinimos) && (puntosMinimos<=21));
+
+    setTimeout(() => {
+        if( puntosComputadora === puntosMinimos){
+            alert('Nadie gana');
+        }else if(puntosMinimos>21){
+            alert('Computadora gana');
+        }else if(puntosComputadora >21){
+            alert('Jugador gana');
+        }else{
+            alert('Computadora gana');
+        }
+    }, 500);
+}
+
+
+
 //Eventos
 
 btnPedir.addEventListener('click', ()=>{
@@ -81,11 +116,37 @@ btnPedir.addEventListener('click', ()=>{
     if(puntosJugador>21){
         console.warn('Perdiste');
         btnPedir.disabled=true;
+        btnDetener.disabled=true;
+        turnoComputadora(puntosJugador);
     }else if(puntosJugador===21){
         console.warn('21, ganaste');
         btnPedir.disabled=true;
+        btnDetener.disabled=true;
     }
     
 });
 
+btnDetener.addEventListener('click', ()=>{
+    btnPedir.disabled=true;
+    btnDetener.disabled=true;
+    turnoComputadora(puntosJugador);
+})
 
+btnNuevo.addEventListener('click', ()=>{
+    
+    console.clear();
+    deck = [];
+    crearDeck();
+    puntosJugador=0;
+    puntosComputadora=0;
+
+    puntajeHtml[0].innerText=0;
+    puntajeHtml[1].innerText=0;
+
+    cartaJugador.innerHTML = '';
+    cartaComputadora.innerHTML = '';
+
+    btnPedir.disabled=false;
+    btnDetener.disabled=false;
+
+})
